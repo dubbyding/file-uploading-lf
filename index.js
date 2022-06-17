@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+
 const upload = multer();
 
 const fileSide = require('./middleware/fileUpload/file');
@@ -9,6 +11,7 @@ const fileSide = require('./middleware/fileUpload/file');
 dotenv.config();
 const app = express();
 
+app.use(cors());
 app.use(upload.array('photo'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
