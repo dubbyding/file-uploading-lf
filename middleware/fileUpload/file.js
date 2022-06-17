@@ -10,9 +10,9 @@ const router = express.Router();
 router.get('/data', async (req, res) => {
 	try {
 		let fileData = await fileGet();
-		res.send(fileData, 200);
+		res.status(200).send(fileData);
 	} catch (e) {
-		res.send('No Data Currently Exists', 404);
+		res.status(404).send('No Data Currently Exists');
 	}
 });
 
@@ -31,14 +31,11 @@ router.get('/file/:fileName', async (req, res) => {
 			path: address,
 		};
 
-		res.send(toReturn, 200);
+		res.status(200).send(toReturn);
 	} else {
-		res.send(
-			{
-				error: 'No File Found',
-			},
-			404
-		);
+		res.status(404).send({
+			error: 'No File Found',
+		});
 	}
 });
 
@@ -49,12 +46,9 @@ router.post('/upload', async (req, res) => {
 		let fileName = files[i].originalname;
 		await fileUpload(fileName, buffer);
 	}
-	res.send(
-		{
-			status: 'Completed',
-		},
-		200
-	);
+	res.status(200).send({
+		status: 'Completed',
+	});
 });
 
 module.exports = router;
